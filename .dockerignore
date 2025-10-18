@@ -1,0 +1,6 @@
+__pycahce__/
+.env
+*.pyc
+.git
+.
+qr_codes
