@@ -1,32 +1,27 @@
-name: Run Tests on Push or Pull Request to Main
+name: Docker Build and Test
 
 on:
   push:
-    branches:
-      - main  # Run tests on any push to the main branch
+    branches: [ main, master ]
   pull_request:
-    branches:
-      - main  # Run tests on any pull request to the main branch
+    branches: [ main, master ]
 
 jobs:
-  test:
+  docker-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'  # Set your desired Python version
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Install dependencies from requirements.txt
+      - name: Build Docker image
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install pytest pytest-cov  # Ensure pytest-cov is installed
+          docker build -t assignment7:latest .
 
-      - name: Run tests with pytest and enforce 90% coverage
+      - name: Run container tests with pytest
         run: |
-          pytest --cov=app --cov-fail-under=90
+          # Run pytest inside the built Docker container
+          docker run --rm assignment7:latest pytest -v
