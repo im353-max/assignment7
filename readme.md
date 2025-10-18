@@ -11,5 +11,6 @@ https://hub.docker.com/r/imanayath/qr_codemaker/tags
 
 ![Docker QR Image](/qr_codes/QRCode_20251018204051.png "My QR Code Link")
 
-Docker Log Results
-/Screenshots/DockerLogsResult.png
+## My Docker Log Results
+
+![Docker Log Results](Screenshots/DockerLogsResult.png)
